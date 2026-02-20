@@ -117,10 +117,16 @@ export function GlobalKPICards() {
       ? (Math.pow(marketSize2033 / marketSize2026, 1 / cagrYears) - 1) * 100
       : 0
 
-    // Calculate absolute growth from 2025 to 2033 (full period between displayed market sizes)
-    const absoluteGrowth = marketSize2033 - marketSize2025
-    const growthPercentage = marketSize2025 > 0
-      ? ((marketSize2033 - marketSize2025) / marketSize2025) * 100
+    // Calculate absolute growth as sum of all yearly values from 2026 to 2033
+    let absoluteGrowth = 0
+    const forecastYears = [2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033]
+    globalRecords.forEach(record => {
+      forecastYears.forEach(year => {
+        absoluteGrowth += record.time_series[year] || 0
+      })
+    })
+    const growthPercentage = marketSize2026 > 0
+      ? ((marketSize2033 - marketSize2026) / marketSize2026) * 100
       : 0
 
     // Get currency preference
@@ -255,7 +261,7 @@ export function GlobalKPICards() {
             </div>
             <div>
               <p className="text-[10px] text-black uppercase tracking-wider font-semibold">
-                Absolute Growth (2025-2033)
+                Absolute Growth (2026-2033)
               </p>
               <p className="text-base font-bold text-black leading-tight">
                 {kpiData.dataType === 'value' && kpiData.isINR
