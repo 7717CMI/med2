@@ -44,23 +44,30 @@ export function ComparisonTable({ title, height = 600 }: ComparisonTableProps) {
     }
 
     // Transform to table format
-    return filtered.map(record => ({
+    return filtered.map(record => {
+      const startVal = record.time_series[startYear] || 0
+      const endVal = record.time_series[endYear] || 0
+      const numYears = endYear - startYear
+
+      return {
       geography: record.geography,
       segment: record.segment,
       segmentType: record.segment_type,
       currentValue: record.time_series[year] || 0,
-      startValue: record.time_series[startYear] || 0,
-      endValue: record.time_series[endYear] || 0,
-      growth: record.time_series[startYear] > 0 
-        ? (((record.time_series[endYear] || 0) - (record.time_series[startYear] || 0)) / record.time_series[startYear] * 100)
+      startValue: startVal,
+      endValue: endVal,
+      growth: startVal > 0
+        ? ((endVal - startVal) / startVal * 100)
         : 0,
-      cagr: parseCAGR(record.cagr),
+      cagr: startVal > 0 && numYears > 0
+        ? (Math.pow(endVal / startVal, 1 / numYears) - 1) * 100
+        : 0,
       marketShare: record.market_share || 0,
       sparkline: Object.entries(record.time_series)
         .filter(([y]) => parseInt(y) >= startYear && parseInt(y) <= endYear)
         .sort(([a], [b]) => parseInt(a) - parseInt(b))
         .map(([, value]) => value)
-    }))
+    }})
   }, [data, filters])
 
   const sortedData = useMemo(() => {
