@@ -43,11 +43,17 @@ export function ComparisonTable({ title, height = 600 }: ComparisonTableProps) {
       return 0
     }
 
+    // CAGR is always calculated from 2026 to 2033 (fixed period)
+    const cagrStartYear = 2026
+    const cagrEndYear = 2033
+    const cagrYears = cagrEndYear - cagrStartYear
+
     // Transform to table format
     return filtered.map(record => {
       const startVal = record.time_series[startYear] || 0
       const endVal = record.time_series[endYear] || 0
-      const numYears = endYear - startYear
+      const cagrStartVal = record.time_series[cagrStartYear] || 0
+      const cagrEndVal = record.time_series[cagrEndYear] || 0
 
       return {
       geography: record.geography,
@@ -59,8 +65,8 @@ export function ComparisonTable({ title, height = 600 }: ComparisonTableProps) {
       growth: startVal > 0
         ? ((endVal - startVal) / startVal * 100)
         : 0,
-      cagr: startVal > 0 && numYears > 0
-        ? (Math.pow(endVal / startVal, 1 / numYears) - 1) * 100
+      cagr: cagrStartVal > 0 && cagrYears > 0
+        ? (Math.pow(cagrEndVal / cagrStartVal, 1 / cagrYears) - 1) * 100
         : 0,
       marketShare: record.market_share || 0,
       sparkline: Object.entries(record.time_series)
@@ -239,7 +245,7 @@ export function ComparisonTable({ title, height = 600 }: ComparisonTableProps) {
                 onClick={() => handleSort('cagr')}
               >
                 <div className="flex items-center justify-end gap-1">
-                  CAGR %
+                  CAGR % (2026-2033)
                   {sortField === 'cagr' && (
                     sortDirection === 'asc' ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />
                   )}
