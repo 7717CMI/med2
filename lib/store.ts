@@ -440,7 +440,7 @@ export const useDashboardStore = create<DashboardStore>((set, get) => ({
     console.log('🔧 Store: setSelectedChartGroup called with:', groupId)
     set({ selectedChartGroup: groupId })
     // Load default opportunity filters when switching to opportunity matrix
-    if (groupId === 'coherent-opportunity') {
+    if (groupId === 'WMR-opportunity') {
       const currentData = get().data
       if (currentData) {
         const defaultOpportunityFilters = getDefaultOpportunityFilters(currentData)
