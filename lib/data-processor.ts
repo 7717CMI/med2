@@ -399,9 +399,12 @@ export function filterData(
           } else {
             // Check if this leaf's parent is one of the explicitly selected segments
             // If so, the aggregated parent record is already included - skip the leaf to avoid double-counting
+            // BUT: if this leaf record IS the selected segment itself (not a child of it),
+            // we must NOT exclude it. This handles segments with no children (e.g., "Other Product / Device Types")
+            // which are leaf records at level 1 — they should be shown when selected.
             const hierarchy = record.segment_hierarchy
             const parentIsSelected = selectedLevel1Segments.some(selectedSeg =>
-              hierarchy.level_1 === selectedSeg
+              hierarchy.level_1 === selectedSeg && record.segment !== selectedSeg
             )
 
             if (parentIsSelected) {
