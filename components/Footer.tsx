@@ -43,8 +43,8 @@ export function Footer() {
                 <p className="text-white font-semibold mb-2">For Business Enquiry :</p>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  <a href="mailto:sales@WMRmarketinsights.com" className="text-gray-300 hover:text-white">
-                    sales@WMRmarketinsights.com
+                  <a href="mailto:sales@worldwidemarketreports.com" className="text-gray-300 hover:text-white">
+                    sales@worldwidemarketreports.com
                   </a>
                 </div>
               </div>
@@ -64,7 +64,7 @@ export function Footer() {
                 <div className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
                   <p className="text-gray-300 text-sm">
-                    Worldwide Market Reports, 401-402, Bremen Business Center, University Road, Aundh, Pune - 411007, India.
+                    WMR Market Insights Pvt Ltd, 401-402, Bremen Business Center, University Road, Aundh, Pune - 411007, India.
                   </p>
                 </div>
               </div>
