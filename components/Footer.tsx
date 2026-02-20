@@ -64,7 +64,7 @@ export function Footer() {
                 <div className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-1 flex-shrink-0" />
                   <p className="text-gray-300 text-sm">
-                    WMR Market Insights Pvt Ltd, 401-402, Bremen Business Center, University Road, Aundh, Pune - 411007, India.
+                    Worldwide Market Reports, 401-402, Bremen Business Center, University Road, Aundh, Pune - 411007, India.
                   </p>
                 </div>
               </div>
